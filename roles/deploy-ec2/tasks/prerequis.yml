@@ -1,0 +1,28 @@
+---
+# prerequis tasks file for deploy-ec2
+- name: Install EPEL repo
+  package: 
+    name: epel-release 
+    state: present
+    update_cache: yes
+  when: ansible_distribution == "CentOS"
+
+- name: install python-pip
+  package: 
+    name: "{{ item }}"
+    state: present 
+    update_cache: yes
+  loop: 
+    - python-pip 
+    - python3-pip 
+  # when: ansible_os_family | lower == "redhat"
+
+- name: Install boto stuff 
+  pip: 
+    name: "{{ item }}"
+  loop:
+    - boto
+    - boto3
+    - botocore
+    
+...

@@ -1,0 +1,9 @@
+---
+# tasks file for deploy-ec2
+- name: Install prerequis
+  include_tasks: prerequis.yml
+
+- name: Deploy ec2 server
+  include_tasks: ec2.yml
+
+

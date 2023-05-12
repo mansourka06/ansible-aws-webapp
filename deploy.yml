@@ -1,0 +1,27 @@
+---
+- name: "Deploy AWS EC2"
+  hosts: localhost
+  become: true
+  vars:
+    ansible_connection: local
+  roles:
+   - deploy-ec2
+  
+- name: "Deploy Webapp in AWS-EC2"
+  hosts: "{{ host_group_name }}"
+  become: true
+  remote_user: centos
+  vars_files:
+    - group_vars/all.yml
+  roles:
+    - deploy_webapp
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+  tasks:
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
