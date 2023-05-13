@@ -5,7 +5,10 @@
   vars:
     ansible_connection: local
   roles:
-   - deploy-ec2
+    - deploy-ec2
+  tags:
+    - ec2
+    - deploy-ec2
   
 - name: "Deploy Webapp in AWS-EC2"
   hosts: "{{ host_group_name }}"
@@ -14,9 +17,11 @@
   vars_files:
     - group_vars/all.yml
   roles:
-    - deploy_webapp
+    - deploy-webapp
     - geerlingguy.pip
     - geerlingguy.docker
+  tags: 
+    - install_requirements
 
   tasks:
     - name: Create Apache container
@@ -25,3 +30,8 @@
         image: httpd
         ports:
           - "80:80"
+      tags:
+        - webapp
+        - deploy-webapp
+
+...
