@@ -15,11 +15,22 @@ Deploy an conternerize Web Application in AWS EC2 using Ansible and Docker.
 
 ## Workflow :
 
-* Install local prerequisites packages
-* Create AWS EC2 Server
-* Deploy the webapp
-    - Install Apache using docker in the EC2 Server
-    - Create Apache container
+- Install local prerequisites packages
+- Create AWS EC2 Server
+- Deploy the webapp
+    * Install Apache using docker in the EC2 Server
+    * Create Apache container
+
+## Usage :
+
+- Clone the repository with the command: 
+    * git clone https://github.com/mansourka06/ansible-aws-webapp.git
+
+- Run the Ansible playbook to deploy the web application:
+    * ansible-playbook -i localhost deploy.yml
+
+- To run only tasks with a specific tag, use the --tags option with the ansible-playbook command. For example, to only run tasks with the docker tag, run the following command:
+    *   ansible-playbook -i localhost deploy.yml --tags docker
 
 
 ## Author :
