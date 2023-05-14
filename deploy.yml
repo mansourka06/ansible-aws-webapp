@@ -1,4 +1,6 @@
 ---
+
+########### Deploy AWS EC2 ##################
 - name: "Deploy AWS EC2"
   hosts: localhost
   become: true
@@ -9,30 +11,21 @@
   tags:
     - ec2
     - deploy-ec2
-  
+
+############ Deploy webapp ##################
 - name: "Deploy Webapp in AWS-EC2"
   hosts: "{{ host_group_name }}"
   become: true
-  remote_user: centos
+  remote_user: ansible
   vars_files:
     - group_vars/all.yml
   roles:
-    - deploy-webapp
     - geerlingguy.pip
     - geerlingguy.docker
+    - deploy-webapp
   tags: 
-    - install_requirements
+    - pip
     - docker
-
-  tasks:
-    - name: Create Apache container
-      docker_container:
-        name: webapp
-        image: httpd
-        ports:
-          - "80:80"
-      tags:
-        - webapp
-        - deploy-webapp
+    - webapp
 
 ...
