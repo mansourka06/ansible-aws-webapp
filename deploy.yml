@@ -16,7 +16,7 @@
 - name: "Deploy Webapp in AWS-EC2"
   hosts: "{{ host_group_name }}"
   become: true
-  remote_user: ansible
+  remote_user: ec2-user
   vars_files:
     - group_vars/all.yml
   roles:
@@ -24,8 +24,7 @@
     - geerlingguy.docker
     - deploy-webapp
   tags: 
-    - pip
-    - docker
     - webapp
+    - deploy-webapp
 
 ...
