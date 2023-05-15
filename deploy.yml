@@ -19,6 +19,7 @@
   remote_user: ec2-user
   vars_files:
     - group_vars/all.yml
+    - group_vars/secret.yml
   roles:
     - geerlingguy.pip
     - geerlingguy.docker

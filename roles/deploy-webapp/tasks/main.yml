@@ -1,10 +1,10 @@
 ---
 # tasks file for deploy-webapp
-
 - name: Install EPEL repo
   package: 
     name: epel-release 
     state: present
+    update_cache: cyes
   when: ansible_os_family == "RedHat"
       
 - name: Download pip script
