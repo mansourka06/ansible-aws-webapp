@@ -1,10 +1,11 @@
-#ec2 information
-instance_type: t2.medium
-security_group_name: "mk-sg"
-id_token: "550e8400-e29b-41d4-a716-446655440079"
-host_group_name: "server"
-aim_centos7: "ami-0057d8e6fb0692b80"
-key_name: "mk"
-region: "us-east-1"
+#ec2 informations
+host_group_name: "webserver"
 host_group : "server"
-subnet : "subnet-6636ac2b"
+instance_type: "t2.micro"
+ami_id: "ami-016eb5d644c333ccb" #redhat 9
+key_name: "webapps"
+security_group_name: "webapp-sg"
+region: "us-east-1"
+tag_name: "ec2-webserver"
+subnet: "subnet-058c208751a60f295"
+token_id: "550e8400-e29b-41d4-a716-446655440079-2"
