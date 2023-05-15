@@ -32,11 +32,10 @@ Deploy an conternerize Apache Web Application in AWS EC2 using Ansible and Docke
     * git clone https://github.com/mansourka06/ansible-aws-webapp.git
 
 - Run the Ansible playbook to deploy the web application:
-    * ansible-playbook -i localhost deploy.yml
+    *   ansible-playbook -i deploy.yml --tags ask-become-pass ----ask-vault-pass (for vaulted file)
 
 - To run only tasks with a specific tag, use the --tags option with the ansible-playbook command. For example, to only run tasks with the docker tag, run the following command:
-    *   ansible-playbook -i localhost deploy.yml --tags docker
-
+    *   ansible-playbook -i deploy.yml --tags ask-become-pass  --tags docker
 
 ## Author :
 
