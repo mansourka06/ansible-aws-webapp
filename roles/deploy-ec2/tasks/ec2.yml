@@ -1,10 +1,12 @@
 ---
 # tasks file for deploy aws EC2 
-- name: Create a security group for server
+- name: Create a security group for webapp server
   ec2_group:
     name: "{{ security_group_name }}"
     description: "{{ security_group_name }}"
     region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
     rules:
       - proto: tcp
         from_port: 22
@@ -18,12 +20,12 @@
       - proto: all
         cidr_ip: 0.0.0.0/0
 
-- name: Deploy Production Server
+- name: Deploy EC2 Server
   ec2:
     group: "{{ security_group_name }}"
     key_name: "{{ key_name }}"
     instance_type: "{{ instance_type }}"
-    image: "{{ aim_centos7 }}"
+    image: "{{ ami_id }}"
     wait: yes
     wait_timeout: 600
     volumes:
@@ -34,10 +36,12 @@
     vpc_subnet_id: "{{ subnet }}"
     assign_public_ip: yes
     region: "{{ region }}"
-    id: "{{ id_token }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    id: "{{ token_id }}"
   register: ec2
 
-- name: Get public IP adress of production server
+- name: Get public IP adress of webapp server
   set_fact: 
     public_ip: "{{ item.public_ip }}"
   loop: "{{ ec2.instances }}"
@@ -53,9 +57,11 @@
   ec2_tag:
     resource: "{{ item.id }}"
     region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
     state: "present"
     tags:
-      Name: "ansible training"
+      Name: "{{ tag_name }}"
   loop: "{{ ec2.instances }}"
 
 - name: Wait for SSH to come up server {{ public_ip }}
